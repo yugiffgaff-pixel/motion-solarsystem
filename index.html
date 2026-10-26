@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>太阳系</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="viewport"></div>
+    <div id="loading">正在载入表面纹理…</div>
+    <header class="topbar">
+      <div>
+        <p class="kicker">日心 · 黄道面 J2000</p>
+        <h1>太阳系</h1>
+      </div>
+      <div class="when">
+        <p id="date-readout">—</p>
+        <p id="accuracy-note"></p>
+      </div>
+    </header>
+    <button id="panel-toggle" type="button" aria-expanded="true">收起目录</button>
+    <aside id="side" class="panel">
+      <div id="body-list"></div>
+      <section class="block">
+        <h2>显示</h2>
+        <label class="check"><input id="toggle-orbits" type="checkbox" checked />轨道</label>
+        <label class="check"><input id="toggle-labels" type="checkbox" checked />名称</label>
+        <label class="check"><input id="toggle-belt" type="checkbox" checked />小行星带（示意）</label>
+        <label class="slider-label" for="scale-slider">
+          星球显示倍数 <span id="scale-readout">8</span>
+        </label>
+        <input id="scale-slider" type="range" min="1" max="30" step="0.1" value="8" />
+        <p class="hint">轨道距离始终按天文单位。1 倍是真实半径。</p>
+        <p id="cap-note" class="hint"></p>
+        <div class="row">
+          <button type="button" id="btn-real">真实大小</button>
+          <button type="button" id="btn-view">观赏</button>
+          <button type="button" id="btn-large">更大</button>
+        </div>
+        <div class="row">
+          <button type="button" id="btn-all">全貌</button>
+          <button type="button" id="btn-inner">内行星</button>
+          <button type="button" id="btn-focus">聚焦</button>
+        </div>
+      </section>
+      <section class="block" id="info">
+        <h2 id="info-name">地球</h2>
+        <p id="info-kind" class="kicker"></p>
+        <dl id="info-stats"></dl>
+        <p id="info-model"></p>
+      </section>
+      <details class="block credits">
+        <summary>历表、精度与纹理</summary>
+        <p>
+          八大行星用 NASA JPL 公布的开普勒近似公式（3000 BC–3000 AD，表 2a，木星至海王星加表 2b）。在这段里，日心黄经的公布误差大约从十几角秒到约 0.3°。时间条超出公元前 3000 年至公元 3000 年时仍用同一公式外推：轨道大小和倾角保持合理，相位不再有公布精度。
+        </p>
+        <p>
+          月球、木卫一至四和土卫六用 JPL 行星卫星平根数（历元 2000-01-01.5 TDB）。月球在黄道上，交点约 18.6 年退行一周。木星卫星和土卫六从拉普拉斯平面转到 J2000 黄道。JPL 说明这些平根数用来描述轨道形状，不是完整星历。
+        </p>
+        <p>
+          五颗矮行星用 JPL 小行星数据库的密切轨道做两体传播（冥王星历元 2016-07-31，其余 2026-06-09）。离开历元后摄动会让相位漂移；冥王星和海王星的共振没有放进模型。
+        </p>
+        <p>
+          日期是公历向两端外推，一天对应一个儒略日，没有再加 ΔT。公元前 1 年的下一天是公元 1 年 1 月 1 日。自转轴用现代指向，岁差没有算进去，表面经度也没有按星历对准。
+        </p>
+        <p>
+          太阳、水星、金星云层、地球、地球云、月球、火星、木星、土星、土星环、天王星、海王星的纹理来自 Solar System Scope，CC BY 4.0。木卫一至四、土卫六来自 NASA 3D Resources（JPL / USGS / Voyager / Galileo / Cassini 图像）。谷神星是 NASA / JPL-Caltech / UCLA / MPS / DLR / IDA 的 Dawn 全球地形设色图。冥王星是 NASA / JHUAPL / SwRI 的新视野号彩色镶嵌图。妊神星、鸟神星、阋神星没有全球影像，页面只按公开色调铺了一层。
+        </p>
+      </details>
+    </aside>
+    <footer class="timeline panel">
+      <div class="time-ends">
+        <span>公元前10000年</span>
+        <span>公元10000年</span>
+      </div>
+      <input id="time-slider" type="range" step="1" aria-label="时间条" />
+      <div class="transport">
+        <button type="button" id="btn-play">播放</button>
+        <button type="button" id="btn-day-minus" title="早一天">−1天</button>
+        <button type="button" id="btn-day-plus" title="晚一天">+1天</button>
+        <button type="button" id="btn-year-minus">−10年</button>
+        <button type="button" id="btn-year-plus">+10年</button>
+        <button type="button" id="btn-today">今天</button>
+        <label class="speed">
+          速度 <span id="speed-readout"></span>
+          <input id="speed-slider" type="range" min="0" max="1000" value="304" />
+        </label>
+      </div>
+      <div class="fine">
+        <span>细调 ±180 天</span>
+        <input id="fine-slider" type="range" min="-180" max="180" step="1" value="0" aria-label="按天细调" />
+      </div>
+      <form id="date-form" class="date-form">
+        <select id="era-select" aria-label="纪年">
+          <option value="bce">公元前</option>
+          <option value="ce">公元</option>
+        </select>
+        <input id="year-input" type="number" min="1" max="10000" step="1" aria-label="年" />
+        <span>年</span>
+        <input id="month-input" type="number" min="1" max="12" step="1" aria-label="月" />
+        <span>月</span>
+        <input id="day-input" type="number" min="1" max="31" step="1" aria-label="日" />
+        <span>日</span>
+        <button type="submit">跳转</button>
+      </form>
+    </footer>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
