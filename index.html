@@ -22,35 +22,35 @@
     </header>
     <button id="panel-toggle" type="button" aria-expanded="true">收起目录</button>
     <aside id="side" class="panel">
-      <div id="body-list"></div>
-      <section class="block">
-        <h2>显示</h2>
-        <label class="check"><input id="toggle-orbits" type="checkbox" checked />轨道</label>
-        <label class="check"><input id="toggle-labels" type="checkbox" checked />名称</label>
-        <label class="check"><input id="toggle-belt" type="checkbox" checked />小行星带（示意）</label>
-        <label class="slider-label" for="scale-slider">
-          星球显示倍数 <span id="scale-readout">8</span>
-        </label>
-        <input id="scale-slider" type="range" min="1" max="30" step="0.1" value="8" />
-        <p class="hint">轨道距离始终按天文单位。1 倍是真实半径。</p>
-        <p id="cap-note" class="hint"></p>
-        <div class="row">
-          <button type="button" id="btn-real">真实大小</button>
-          <button type="button" id="btn-view">观赏</button>
-          <button type="button" id="btn-large">更大</button>
-        </div>
-        <div class="row">
-          <button type="button" id="btn-all">全貌</button>
-          <button type="button" id="btn-inner">内行星</button>
-          <button type="button" id="btn-focus">聚焦</button>
-        </div>
-      </section>
-      <section class="block" id="info">
+      <section id="info">
         <h2 id="info-name">地球</h2>
         <p id="info-kind" class="kicker"></p>
         <dl id="info-stats"></dl>
         <p id="info-model"></p>
       </section>
+      <div class="row">
+        <button type="button" id="btn-all">全貌</button>
+        <button type="button" id="btn-inner">内行星</button>
+        <button type="button" id="btn-focus">聚焦</button>
+      </div>
+      <div class="row">
+        <button type="button" id="btn-real">真实大小</button>
+        <button type="button" id="btn-view">观赏</button>
+        <button type="button" id="btn-large">更大</button>
+      </div>
+      <label class="slider-label" for="scale-slider">
+        星球显示倍数 <span id="scale-readout">8</span>
+      </label>
+      <input id="scale-slider" type="range" min="1" max="30" step="0.1" value="8" />
+      <p id="cap-note" class="hint"></p>
+      <div id="body-list"></div>
+      <details class="block">
+        <summary>显示</summary>
+        <label class="check"><input id="toggle-orbits" type="checkbox" checked />轨道</label>
+        <label class="check"><input id="toggle-labels" type="checkbox" checked />名称</label>
+        <label class="check"><input id="toggle-belt" type="checkbox" checked />小行星带（示意）</label>
+        <p class="hint">轨道距离始终按天文单位。1 倍是真实半径。</p>
+      </details>
       <details class="block credits">
         <summary>历表、精度与纹理</summary>
         <p>

@@ -114,10 +114,22 @@ h2 {
   top: 112px;
   left: 16px;
   width: min(320px, calc(100vw - 32px));
-  max-height: calc(100vh - 300px);
+  max-height: calc(100vh - 280px);
   overflow: auto;
   padding: 12px 12px 16px;
   z-index: 3;
+}
+
+#info-model {
+  max-height: 4.6em;
+  overflow: auto;
+}
+
+#body-list {
+  max-height: min(240px, 28vh);
+  overflow: auto;
+  margin-top: 8px;
+  padding-right: 4px;
 }
 
 #side.is-collapsed { display: none; }
@@ -207,7 +219,7 @@ input[type="range"] {
 #info-stats dt { color: var(--muted); }
 #info-stats dd { margin: 0; }
 
-.credits summary { cursor: pointer; color: var(--paper); }
+.block summary, .credits summary { cursor: pointer; color: var(--paper); }
 .credits p { margin: 8px 0; }
 
 .timeline {
@@ -278,7 +290,8 @@ input[type="range"] {
   #date-readout { font-size: 15px; }
   #accuracy-note { margin-left: 0; max-width: none; }
   #panel-toggle { top: 96px; }
-  #side { top: 136px; max-height: 32vh; }
+  #side { top: 136px; max-height: 42vh; }
+  #body-list { max-height: 22vh; }
   .timeline { left: 8px; right: 8px; bottom: 8px; padding: 8px 10px; }
   .date-form input[type="number"] { width: 56px; }
   #year-input { width: 72px; }
