@@ -16,13 +16,23 @@ npm run dev
 
 用浏览器打开终端里打印的地址，一般是 http://localhost:5173 。
 
-要一个可以拷走的静态页面：
+要看编译后的页面，先构建，再用本地 HTTP 服务打开。不要双击 `dist/index.html`。在 macOS 上，Safari 不允许直接从磁盘读取旁边的纹理，加载提示会一直停着。
 
 ```bash
 npm run build
+npm run preview
 ```
 
-然后双击 `dist/index.html`，或者运行 `npm run preview`。请打开 `dist` 里的那个文件，不是项目根目录的 `index.html`。
+浏览器打开 http://localhost:4173 。地址栏必须是 `http://localhost`，不能是 `file://`。
+
+没有装 Node.js 时，macOS 自带的 Python 也可以。终端先进入 `dist` 文件夹：
+
+```bash
+cd dist
+python3 -m http.server 8080
+```
+
+然后打开 http://localhost:8080 。终端不要关，关掉服务就停了。
 
 ## 操作
 

@@ -110,14 +110,25 @@
     <script>
       (function () {
         var loading = document.getElementById("loading");
+        if (!loading || location.protocol !== "file:") return;
         var source = document.querySelector('script[type="module"][src$="main.ts"]');
-        if (!loading || !source || location.protocol !== "file:") return;
-        loading.innerHTML =
-          "不能直接双击这个 index.html。<br><br>" +
-          "画面停在「正在载入表面纹理」，并不是纹理在下载。浏览器没有启动程序，这句话是写在页面上的，所以会一直停着。<br><br>" +
-          "请先安装 Node.js。在这个文件夹打开终端，依次运行：<br>" +
-          "npm install<br>npm run dev<br><br>" +
-          "然后用浏览器打开终端里显示的地址，一般是 http://localhost:5173 。不要刷新这个文件页面。";
+        var serverHelp =
+          "请用本地 HTTP 服务打开，不要双击 html 文件。<br><br>" +
+          "在项目文件夹打开终端，运行：<br>npm run build<br>npm run preview<br><br>" +
+          "然后打开 http://localhost:4173<br><br>" +
+          "也可以先 cd dist，再运行 python3 -m http.server 8080，打开 http://localhost:8080 。";
+        if (source) {
+          loading.innerHTML =
+            "不能直接双击这个 index.html。<br><br>" +
+            "画面停在「正在载入表面纹理」，并不是纹理在下载。浏览器没有启动程序。<br><br>" +
+            "请先安装 Node.js。在这个文件夹打开终端，依次运行：<br>" +
+            "npm install<br>npm run dev<br><br>" +
+            "然后打开终端里显示的地址，一般是 http://localhost:5173 。";
+          return;
+        }
+        setTimeout(function () {
+          if (!loading.classList.contains("is-gone")) loading.innerHTML = serverHelp;
+        }, 8000);
       })();
     </script>
   </body>
