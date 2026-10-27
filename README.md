@@ -4,18 +4,25 @@
 
 ## 运行
 
+不要直接双击文件夹里的 `index.html`。那是源码页面，浏览器打不开里面的 TypeScript，加载提示会一直停着，纹理并没有在下载。
+
+安装 [Node.js](https://nodejs.org/) 后，在这个文件夹打开终端：
+
 ```bash
 npm install
 npm run check
 npm run dev
 ```
 
-构建静态页：
+用浏览器打开终端里打印的地址，一般是 http://localhost:5173 。
+
+要一个可以拷走的静态页面：
 
 ```bash
 npm run build
-npm run preview
 ```
+
+然后双击 `dist/index.html`，或者运行 `npm run preview`。请打开 `dist` 里的那个文件，不是项目根目录的 `index.html`。
 
 ## 操作
 

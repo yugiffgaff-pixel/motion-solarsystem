@@ -13,7 +13,7 @@ import {
   RANGE_START_JD,
 } from "./ephemeris/time";
 import { KM_PER_AU } from "./ephemeris/vec";
-import { createScene } from "./scene";
+import { createScene, type SceneApi } from "./scene";
 
 const viewport = document.querySelector<HTMLElement>("#viewport");
 const loading = document.querySelector<HTMLElement>("#loading");
@@ -37,18 +37,22 @@ const dayInput = must<HTMLInputElement>("#day-input");
 const side = must<HTMLElement>("#side");
 const panelToggle = must<HTMLButtonElement>("#panel-toggle");
 
-const scene = await createScene(viewport, { onPick: pick });
-loading.classList.add("is-gone");
-if (window.matchMedia("(max-width: 800px)").matches) {
-  side.classList.add("is-collapsed");
-  panelToggle.textContent = "目录";
-  panelToggle.setAttribute("aria-expanded", "false");
-}
-
+let scene: SceneApi;
 let jd = nowJd();
 let playing = false;
 let fineAnchor = jd;
 let selected = "earth";
+
+void boot();
+
+async function boot(): Promise<void> {
+  scene = await createScene(viewport!, { onPick: pick });
+  loading!.classList.add("is-gone");
+  if (window.matchMedia("(max-width: 800px)").matches) {
+    side.classList.add("is-collapsed");
+    panelToggle.textContent = "目录";
+    panelToggle.setAttribute("aria-expanded", "false");
+  }
 
 timeSlider.min = String(RANGE_START_JD);
 timeSlider.max = String(RANGE_END_JD);
@@ -160,6 +164,7 @@ function frame(now: number): void {
   requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
+}
 
 function pick(id: string): void {
   selected = id;
