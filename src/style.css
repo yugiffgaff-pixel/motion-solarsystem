@@ -1,0 +1,299 @@
+:root {
+  color-scheme: dark;
+  --ink: #100e0c;
+  --paper: #f3eadb;
+  --muted: #b3a794;
+  --brass: #e0c17a;
+  --brass-dim: rgba(224, 193, 122, 0.4);
+  --panel: rgba(16, 14, 12, 0.78);
+  --line: rgba(243, 234, 219, 0.12);
+  font-family: "Avenir Next", "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: #07080b;
+  color: var(--paper);
+}
+
+button, input, select { font: inherit; color: inherit; }
+
+#viewport {
+  position: fixed;
+  inset: 0;
+}
+
+#viewport canvas { display: block; }
+
+#loading {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: #07080b;
+  z-index: 5;
+  letter-spacing: 0.08em;
+}
+
+#loading.is-gone { display: none; }
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px 22px 8px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+h1, h2, .when p {
+  font-family: "Iowan Old Style", Palatino, "Palatino Linotype", "Songti SC", "Noto Serif CJK SC", serif;
+  font-weight: 500;
+}
+
+h1 {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: 0.18em;
+}
+
+h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.kicker {
+  margin: 0 0 4px;
+  color: var(--brass);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.when { text-align: right; }
+.when p { margin: 0; }
+#date-readout { font-size: 22px; }
+#accuracy-note {
+  margin-top: 4px;
+  max-width: 420px;
+  margin-left: auto;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+#panel-toggle {
+  position: fixed;
+  top: 78px;
+  left: 16px;
+  z-index: 4;
+  background: var(--panel);
+  border: 1px solid var(--brass-dim);
+  color: var(--brass);
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+}
+
+#side {
+  position: fixed;
+  top: 112px;
+  left: 16px;
+  width: min(320px, calc(100vw - 32px));
+  max-height: calc(100vh - 280px);
+  overflow: auto;
+  padding: 12px 12px 16px;
+  z-index: 3;
+}
+
+#info-model {
+  max-height: 4.6em;
+  overflow: auto;
+}
+
+#body-list {
+  max-height: min(240px, 28vh);
+  overflow: auto;
+  margin-top: 8px;
+  padding-right: 4px;
+}
+
+#side.is-collapsed { display: none; }
+
+.group-label {
+  margin: 10px 0 4px;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  border-left: 2px solid transparent;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.nav-btn:hover { background: rgba(243, 234, 219, 0.04); }
+
+.nav-btn.is-selected {
+  border-left-color: var(--brass);
+  background: rgba(224, 193, 122, 0.1);
+}
+
+.swatch {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.block { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+.block h2 { font-size: 15px; letter-spacing: 0.12em; }
+
+.check {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.slider-label, .hint, #info-model, .credits p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.hint { margin: 6px 0; }
+#cap-note:empty { display: none; }
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--brass);
+}
+
+.row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+
+.row button, .transport button, .date-form button, #panel-toggle {
+  background: transparent;
+  border: 1px solid var(--brass-dim);
+  padding: 5px 8px;
+  cursor: pointer;
+}
+
+.row button:hover, .transport button:hover, .date-form button:hover, #panel-toggle:hover {
+  border-color: var(--brass);
+  color: var(--brass);
+}
+
+#info-stats {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  margin: 8px 0;
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+}
+
+#info-stats dt { color: var(--muted); }
+#info-stats dd { margin: 0; }
+
+.block summary, .credits summary { cursor: pointer; color: var(--paper); }
+.credits p { margin: 8px 0; }
+
+.timeline {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 12px;
+  z-index: 3;
+  padding: 10px 14px 12px;
+}
+
+.time-ends, .transport, .fine, .date-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.time-ends {
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+
+.transport { margin-top: 8px; flex-wrap: wrap; }
+.speed { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 220px; font-size: 13px; }
+.speed input { flex: 1; }
+.fine { margin-top: 6px; color: var(--muted); font-size: 12px; }
+.fine input { flex: 1; }
+
+.date-form { margin-top: 8px; flex-wrap: wrap; }
+.date-form input[type="number"] {
+  width: 88px;
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 4px 6px;
+}
+.date-form select {
+  background: #16130f;
+  border: 1px solid var(--line);
+  padding: 4px 6px;
+}
+#year-input { width: 100px; }
+
+.tag span {
+  display: block;
+  transform: translate(-50%, -130%);
+  padding: 1px 5px;
+  color: var(--paper);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+  white-space: nowrap;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.tag.is-selected span { color: var(--brass); }
+
+@media (max-width: 800px) {
+  .topbar {
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 16px 0;
+  }
+  h1 { font-size: 22px; letter-spacing: 0.12em; }
+  .when { text-align: left; }
+  #date-readout { font-size: 15px; }
+  #accuracy-note { margin-left: 0; max-width: none; }
+  #panel-toggle { top: 96px; }
+  #side { top: 136px; max-height: 42vh; }
+  #body-list { max-height: 22vh; }
+  .timeline { left: 8px; right: 8px; bottom: 8px; padding: 8px 10px; }
+  .date-form input[type="number"] { width: 56px; }
+  #year-input { width: 72px; }
+  .speed { min-width: 0; flex-basis: 100%; }
+}
